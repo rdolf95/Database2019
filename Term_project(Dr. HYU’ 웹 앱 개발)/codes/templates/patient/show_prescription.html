@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Patient - 처방전 보기</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h2>처방전 보기</h2>
+        <div style="margin-top: 20px; margin-right: 15px;">
+            <table border = 2>
+                <thead>
+                    <tr>
+                        <th> 환자 이름 </th> <th> 처방 의료기관 </th> 
+                        <th> 발급 일 </th> <th> 발급 시간 </th> <th> 상세보기 </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for prescription in prescriptions %}
+                    <tr>
+                        <td> {{ prescription['p_name'] }} </td>
+                        <td> {{ prescription['h_name'] }} </td>
+                        <td> {{ prescription['presc_date'] }} </td>
+                        <td> {{ prescription['presc_time'] }} </td>
+                        <td>
+                            <form id = 'appo' method="POST" action = "/patient/show_prescription/show_detail"> 
+                                <input type="hidden" name="prid" value= {{ prescription['prid'] }} />
+                                <button type = 'submit' style="height:25px; width:8å0px;"> 상세보기 </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button onclick="location.href='/patient'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+    </body>
+</html>

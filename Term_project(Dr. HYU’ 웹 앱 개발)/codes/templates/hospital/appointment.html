@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Hospital - Appointment
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="/static/hospital/appointment.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <table id = "appointment" border = '3'>
+        <thead>
+            <th> 환자 이름 </th> <th> 환자 전화번호 </th> <th> 진료 과목</th>
+            <th> 날짜 </th> <th> 시간 </th> <th> 예약 확정</th>
+        </thead>
+        <tbody>
+            {% for i in range(appointment|length) %}
+            <tr>
+                <td> {{patients[i]['name'] }}</td>
+                <td> {{ patients[i]['phone'] }}</td>
+                <td> {{ appointment[i]['subject'] }} </td>
+                <td> {{ appointment[i]['date'] }}</td>
+                <td> {{ appointment[i]['time'] }}</td>
+                <td> 
+                    {% if appointment[i]['confirm'] == 1 %}
+                        예약 확정
+                    {% else %}
+                        예약 대기
+                    {% endif %}
+                </td>
+                <td> <button name = 'confirm' type = 'submit' onclick = 'confirm(this)'> 예약 확정 </button> </td>
+                <td> <button name = 'decline' onclick = 'decline(this)'> 예약 거절 </button> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    </br></br>
+    <button onclick="location.href='/hospital'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+    
+</body>

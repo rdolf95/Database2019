@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        store - Appointment
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <table id = "appointment" border = '3'>
+        <thead>
+            <th> 환자 이름 </th> <th> 환자 전화번호 </th> <th> 의료기관 명 </th>
+            <th> 발급 일 </th> <th> 발급 시간 </th> <th> 처방전 보기</th>
+        </thead>
+        <tbody>
+            {% for appo in appointment %}
+            <tr>
+                <td> {{ appo['p_name'] }}</td>
+                <td> {{ appo['p_phone']  }}</td>
+                <td> {{ appo['h_name'] }} </td>
+                <td> {{ appo['presc_date'] }}</td>
+                <td> {{ appo['presc_time'] }}</td>
+                <td> 
+                    <form id = 'presc_data' method="POST" action = "/store/show_prescription">
+                        <input type = 'hidden', name = 'prid', value = {{ appo['prid'] }} />
+                        <button type = 'submit' style="width: 90px; height: 25px;"> 처방전 보기 </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    </br></br>
+    <button onclick="location.href='/store'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+    
+</body>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Patient - 상점 예약하기</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div style = 'float:left;'>
+            <p style="font-size:1.3em"> 상점 상세정보 </p>
+                {{  store['name'] }} </br>
+                주소: {{  store['addr'] }} </br>
+                {% if store['kind'] == 1 %}
+                종류 : 약국
+                {% endif %}
+            </br>
+            <button onclick="location.href='/patient'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+        </div>
+        <div style="float: right; margin-top: 20px; margin-right: 15px;">
+            <table border = 2>
+                <thead>
+                    <tr>
+                        <th> 환자 이름 </th> <th> 처방 의료기관 </th> 
+                        <th> 발급 일 </th> <th> 발급 시간 </th><th> 종류 </th> <th> 선택 </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for prescription in prescriptions %}
+                    <tr>
+                        <td> {{ prescription['p_name'] }} </td>
+                        <td> {{ prescription['h_name'] }} </td>
+                        <td> {{ prescription['presc_date'] }} </td>
+                        <td> {{ prescription['presc_time'] }} </td>
+                        <td>{% if prescription['etc'] == '안경처방전' %}
+                            안경 처방전
+                            {% else %}
+                            일반 처방전
+                            {%endif%}
+                        </td>
+
+                        <td>
+                            <form id = 'appo' method="POST" action = "/patient/make_store_appointment"> 
+                                <input type="hidden" name="sid" value= {{ store['sid'] }} />
+                                <input type="hidden" name="prid" value= {{ prescription['prid'] }} />
+                                <button type = 'submit' style="height:25px; width:8å0px;"> 선택 </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+            
+        </div>
+    </body>
+</html>

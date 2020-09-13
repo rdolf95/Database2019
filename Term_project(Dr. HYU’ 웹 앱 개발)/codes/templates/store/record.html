@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Store - Patients record
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script>
+        
+        function show_presc(prid){
+            console.log(prid)
+            var form = document.getElementById("prescription")
+            var presc = document.createElement("input")
+            presc.type = "hidden"
+            presc.name = "prid"
+            presc.value = prid
+
+            form.appendChild(presc)
+            console.log(form)
+            form.submit()
+        }
+    </script>
+   
+</head>
+
+<body>
+    <h1> 환자기록 </h1>
+    <table border = '2'>
+        <thead>
+            <tr>
+                <td> 환자 이름 </td> 
+                <td> 환자 전화번호 </td> 
+                <td> 의료기관 명 </td>
+                <td> 조제 날짜 </td>
+                <td> 조제 시간 </td>
+                <td> 처방전 </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for presc in prescription %}
+            <tr> 
+                <td> {{ presc['p_name'] }}  </td>
+                <td> {{ presc['p_phone'] }} </td>
+                <td> {{ presc['h_name'] }} </td>
+                <td> {{ presc['prepare_date'] }}</td>
+                <td> {{ presc['prepare_time'] }}</td>
+                <td> <form id = 'prescription' method="POST" action = "/store/record/presc_detail"> 
+                        <input type = 'hidden' name = 'prid' value = "{{presc['prid']}}" />
+                        <button type = 'submit'> 처방전 보기 </button> 
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </br></br>
+    <button onclick="location.href='/store'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+</body>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Store - Home
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div style="float: right;"> 
+            <button onclick="location.href='/logout'" 
+                    style="height:30px; width:70px; float: left;"> 로그아웃 </button>
+            <button onclick="location.href='/change_profil'" 
+                    style="height:30px; width:70px; float: left;"> 프로필 수정 </button>
+    </div>
+    <div>
+        You are managing {{  store['name'] }} </br>
+        {% if store['kind'] == 1%}
+            종류: 약국
+        {% endif %}
+        </br>
+        위도: {{  store['lat'] }}  경도: {{  store['lng'] }}</br>
+        주소: {{  store['addr'] }} </br>
+    </div>
+    </br>
+    <button onclick="location.href='/store/appointment'" style="height:80px; width:200px; font-size:2.0em; float: left;"> 예약자 확인</button>
+    <button onclick="location.href='/store/record'" style="height:80px; width:200px; font-size:2.0em; float: left;"> 환자 기록 확인</button>
+</body>

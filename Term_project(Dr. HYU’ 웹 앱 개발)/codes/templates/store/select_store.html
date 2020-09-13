@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            상점 선택
+        </title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+        </script>
+        <script src="/static/store/select_store.js" type="text/javascript"></script>
+    </head>
+
+    <body>
+        <div>
+            관리할 상점을 선택 해야 합니다.
+        </div> 
+
+        <div id = "pharmacy-list" style = "float: right">
+            <h3>검색결과</h3>
+            <select id = 'kind'>
+                <option value="0" selected="selected">전체 검색</option>
+                <option value="1">약국 검색</option>
+            </select>
+    
+            <input id = "search" type="text" name="name" placeholder="상점 이름" />
+            <button type ="button" onclick="getStore()"> 검색하기 </button>
+            <table id = "search-result" border="2">
+                <thead>
+                    <tr>
+                        <th style=" width: 150px;"> 상점 이름 </th>
+                        <th style=" width: 500px;"> 주소 </th>
+                        <th style="width : 70px; "> 선택 </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <p></p>
+        </div>
+    </body>
+</html>

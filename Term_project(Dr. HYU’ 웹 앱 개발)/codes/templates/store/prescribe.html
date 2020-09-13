@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Hospital - Prescription
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="/static/hospital/prescription.js" type="text/javascript"></script>
+</head>
+
+<body>
+<h1> 처방전 입력(병원) </h1>
+<div>
+    <button type='button' onclick = "pack_forms()" style="height: 30px; width: 60px;"> 처방하기 </button>
+    <button onclick = "location.href = '/store'" style="height: 30px; width: 50px;"> 취소 </button> 
+</div>
+</br></br>
+<div id = "prescription">
+    <div name = "p_time"> 발급 연 월 일 </div>
+    <table id = "time"> 
+        <tbody>
+            <tr>
+                <td><input type="text" name="p_year" value = {{year}} readonly="readonly" style="width:40px; font-size:1.0em"  dir = 'rtl' /> 년</td>
+                <td><input type="text" name="p_month" value = {{month}} readonly="readonly" style="width:30px; font-size:1.0em"  dir = 'rtl' /> 월</td>
+                <td><input type="text" name="p_day" value = {{day}} readonly="readonly" style="width:30px; font-size:1.0em"  dir = 'rtl' /> 일</td>
+                <td><input type="text" name="p_hour" value = {{hour}} readonly="readonly" style="width:30px; font-size:1.0em"  dir = 'rtl' /> 시</td>
+                <td><input type="text" name="p_minute" value = {{minute}} readonly="readonly" style="width:30px; font-size:1.0em"  dir = 'rtl'/> 분</td>
+            </tr>
+        </tbody>
+    </table>
+    <div> 환자이름: 
+        <input type= "text" name = "p_name" placeholder="환자 이름" style="width: 70px; font-size:1.0em;" />
+        <input type= "text" name = "p_phone" placeholder="환자 전화번호" style="width: 130px; font-size:1.0em;" />
+    </div>
+    <div> 의료기관명 :
+            <input type="text" name="h_name" value= {{hospital}} readonly="readonly" style="width:100px; font-size:1.0em;" />
+    </div>
+    <table id = "medicine" border = '2' style="float: left;">
+        <thead >
+            <tr>
+                <td style="width:200px;"> 처방 의약품의 명칭</td> <td style='width:100px;'> 1회 투약량</td> <td style='width:100px;'> 1일 투여횟수</td> <td style='width:100px;'> 총 투약일수</td>
+            </tr>
+        </thead>
+        <tbody id = "medicine_tbd"></tbody>
+        <!--//TODO: tbody 에 js 로 행 추가하기-->
+    </table>
+    <div style = "float: left;"> 
+        <button  style="height: 30px; width: 50px;" onclick = "add_row()"> 약 추가 </button> 
+    </div>
+</div>
+
+
+
+</body>

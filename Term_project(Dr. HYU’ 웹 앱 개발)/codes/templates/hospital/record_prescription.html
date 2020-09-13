@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Hospital - Record_Prescription
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+<h1> 처방전 </h1>
+</br>
+<div id = "prescription">
+    <div name = "p_time"> 발급 연 월 일 </div>
+    <table id = "time"> 
+        <tbody>
+            <tr>
+                <td>{{ prescription["presc_date"].year }} 년</td>
+                <td>{{ prescription["presc_date"].month }} 월</td>
+                <td>{{ prescription["presc_date"].day }} 일</td>
+                <td>{{ prescription["presc_time"].hour }} 시</td>
+                <td>{{ prescription["presc_time"].minute }} 분</td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <td> 환자이름 </td>
+                <td> 환자 전화번호</td>
+            </tr>
+        </thead>
+        <tbody>
+            <td> {{ patient["name"] }} </td>
+            <td> {{ patient["phone"] }} </td>
+        </tbody>
+        
+       
+    </div>
+    
+    <div> 의료기관명 : {{ hospital }} </div>
+    {% if medicines != [] %}
+    <table id = "medicine" border = '2'>
+        <thead >
+            <tr>
+                <td style="width:200px;"> 처방 의약품의 명칭</td> 
+                <td style='width:100px;'> 1회 투약량</td> 
+                <td style='width:100px;'> 1일 투여횟수</td> 
+                <td style='width:100px;'> 총 투약일수</td>
+            </tr>
+        </thead>
+        <tbody id = "medicine_tbd"></tbody>
+        {% for medicine in medicines %}
+            <tr>
+                <td> {{ medicine['name'] }}</td>
+                <td> {{ medicine['amount'] }}</td>
+                <td> {{ medicine['day'] }}</td>
+                <td> {{ medicine['total'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if eye != [] %}
+    <table id = "eye" border = '2'>
+        <thead >
+            <tr>
+                <td> 왼쪽 눈 시력</td> 
+                <td> 오른쪽 눈 시력</td> 
+            </tr>
+        </thead>
+        <tbody id = "eye_tbd"></tbody>
+            <tr>
+                <td> {{ eye[0]['l_eye'] }}</td>
+                <td> {{ eye[0]['r_eye'] }}</td>
+            </tr>
+    </table>
+    {% endif %}
+</div>
+</br>
+<div>
+    <button onclick = "location.href = '/hospital'" style="height: 50px; width: 150px; font-size:1.5em;"> 홈으로 </button> 
+</div>
+
+
+
+</body>

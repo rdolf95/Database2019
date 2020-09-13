@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Hospital - Patients record
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script>
+        
+        function show_presc(prid){
+            console.log(prid)
+            var form = document.getElementById("prescription")
+            var presc = document.createElement("input")
+            presc.type = "hidden"
+            presc.name = "prid"
+            presc.value = prid
+
+            form.appendChild(presc)
+            console.log(form)
+            form.submit()
+        }
+
+        function get_presc(){
+            var name = $("#name").val()
+            if(name == ""){
+                alert("이름을 입력하세요")
+                return
+            }
+            var phone = $("#phone").val()
+            if(phone == ""){
+                alert("전화번호를 입력하세요")
+                return
+            }
+            var month = $('select[name ="month"]').val()
+            var day = $('select[name ="day"]').val()
+            if(month == "" || day == ""){
+                alert("날짜를 선택하세요")
+                return
+            }
+
+            var data = {name: name,
+                        phone: phone,
+                        month: month,
+                        day: day}
+            
+            console.log(data)
+            $.ajax({
+                type: "POST",
+                url: '/hospital/record/rest',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: JSON.stringify(data),
+                success: res => {
+                    //console.log(res)
+                }
+            }).done(data => {
+                //console.log(data)
+                input = JSON.parse(data)
+                var tBodyHtml = ''
+                for (var i =0; i<input.length; i++){
+                    row = input[i]
+                    tBodyHtml +=  `<tr>
+                        <td> ${row['p_name']}  </td>
+                        <td> ${row['p_phone']} </td>
+                        <td> ${row['presc_date']}</td>
+                        <td> ${row['presc_time']}</td>
+                        <td> <form id = 'prescription' method="POST" action = "/hospital/record/showpresc"> 
+                            <button type = 'submit' 
+                            onclick=show_presc(${row['prid']});> 처방전 보기 </button> 
+                            </form>
+                        </td>
+                    </tr>
+                    `
+                }
+                $("table#search tbody").html(tBodyHtml)
+            })
+        }
+    </script>
+   
+</head>
+
+<body>
+    <div>
+        <input id = "name" placeholder="이름" /> <input id = "phone" placeholder="전화번호"/> 
+        <select name="month">
+            <option value='default'> 월</option>
+            {% for i in range(1,13) %}
+                <option value={{ i }}>{{i}} 월</option>
+            {% endfor %}
+        </select>
+        <select name="day">
+            <option value='default'> 일</option>
+            {% for i in range(1,32) %}
+                <option value={{ i }}>{{i}} 일</option>
+            {% endfor %}
+        </select>
+        <button type = "click" onclick="get_presc()"> 검색하기 </button>
+    </div>
+    <h1> 환자기록 </h1>
+    <table id = "search" border = '2'>
+        <thead>
+            <tr>
+                <td> 환자 이름 </td> 
+                <td> 환자 전화번호 </td> 
+                <td> 방문 날짜 </td>
+                <td> 방문 시간 </td>
+                <td> 처방전 </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr> 
+                <td> {{ patient['name'] }}  </td>
+                <td> {{ patient['phone'] }} </td>
+                <td> {{ patient['presc_date'] }}</td>
+                <td> {{ patient['presc_time'] }}</td>
+                <td> <form id = 'prescription' method="POST" action = "/hospital/record/showpresc"> 
+                    <button type = 'submit' 
+                    onclick=show_presc({{ patient['prid'] }});> 처방전 보기 </button> 
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </br></br>
+    <button onclick="location.href='/hospital'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+</body>

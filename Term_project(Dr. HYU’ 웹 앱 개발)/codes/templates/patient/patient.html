@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+    <title>Patient - Home</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="/static/patient/patient.js" type="text/javascript"></script>
+</head>
+<body>
+    <div style="float: right;"> 
+            <button onclick="location.href='/logout'" 
+                    style="height:30px; width:70px; float: left;"> 로그아웃 </button>
+            <button onclick="location.href='/change_profil'" 
+                    style="height:30px; width:70px; float: left;"> 프로필 수정 </button>
+    </div>
+    <div style = 'width : 500px; float: left;'>
+        <div style = "float : left">
+            최근 간 병원 목록
+            <table border = 2>
+                <thead>
+                    <tr>
+                        <td> 병원 이름 </td> <td> 예약하기 </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recent in recent_hos %}
+                    <tr>
+                        <td> {{ recent['name'] }}</td>
+                        <td>
+                            <form name = 'appo' method="POST" action = "/patient/make_appointment"> 
+                                <input type="hidden", name = 'hid', value={{ recent['hid'] }} />
+                                <button type = 'submit'> 예약하기 </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div style = "float : left;  margin-left: 10px;">
+            자주가는 병원 목록
+            <table border = 2>
+                <thead>
+                    <tr>
+                        <td> 병원 이름 </td> <td> 예약하기 </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for frequent in frequent_hos %}
+                    <tr>
+                        <td> {{ frequent['name'] }}</td>
+                        <td>
+                            <form name = 'appo' method="POST" action = "/patient/make_appointment">
+                                <input type="hidden", name = 'hid', value={{ frequent['hid'] }} />
+                                <button type = 'submit'> 예약하기 </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button onclick="add_frequent()"> 추가하기 </button>
+        </div>
+        </br></br></br></br></br></br>
+        </br></br></br></br></br></br>
+        <table id = "search-result">
+            <tbody></tbody>
+        </table>
+        <p></p>
+    </div>
+    <div style = "float:right">
+        <button onclick="location.href='/patient/close_hospital'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 40px;"> 
+                가까운 병원 검색
+        </button>
+
+        <button onclick="location.href='/patient/subject_hospital'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 10px;"> 
+                진료 가능 과목 검색
+        </button>
+        </br></br></br></br></br>
+
+        <button onclick="location.href='/patient/name_hospital'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 40px;"> 
+                병원 이름으로 검색
+        </button>
+
+        <button onclick="location.href='/patient/close_pharmacy'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 10px;"> 
+                주변 상점 검색
+        </button>
+        </br></br></br></br></br>
+        <button onclick="location.href='/patient/check_store_appointment'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 40px;"> 
+                상점 예약 상황 확인
+        </button>
+
+        <button onclick="location.href='/patient/check_appointment'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 10px;"> 
+                병원 예약 상황 확인
+        </button>
+        </br></br></br></br></br>
+        <button onclick="location.href='/patient/show_prescription'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 40px;"> 
+                처방전 보기
+        </button>
+        <button onclick="location.href='/patient/name_store'" 
+                style="height:80px; width:250px; font-size:1.5em; float: right; margin-right: 10px;"> 
+                이름으로 상점 검색
+        </button>
+    </div>
+</body>
+</html>

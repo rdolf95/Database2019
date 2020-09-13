@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <title>Select mode</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script>
+         $(document).ready(() =>{
+            $("#selection").submit((e) => {
+                var url = "/selection"
+                e.preventDefault()
+                var select = document.getElementById("selection")
+                var uid = document.createElement("input")
+                uid.type = "hidden"
+                uid.name = "uid"
+                uid.value = "{{uid}}"
+
+                select.appendChild(uid)
+                select.submit()
+            })
+         })
+        
+    </script>
+</head>
+<body>
+    <div>
+        Welcome {{ name }}
+        </br>
+        User type 을 결정해야 합니다.
+    </div>
+
+        <form id = "selection" method = "POST" action = "/dselect">
+            <select name="kind">
+                {% if kind == 4 %}
+                <option value="1" selected="selected">병원</option>
+                <option value="3">환자</option>
+                {% elif kind == 5 %}
+                <option value="2" selected="selected">상점</option>
+                <option value="3">환자</option>
+                {% endif %}
+            </select>
+            <button type = "submit"> 선택 </button>
+        </form>
+</body>
+

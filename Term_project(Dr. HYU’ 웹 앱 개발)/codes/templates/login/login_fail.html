@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Login
+        </title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+        </script>
+        <script>
+           
+            $(document).ready(() =>{
+                alert("Email / 비밀번호를 잘못 입력 했습니다.")
+            })
+        
+        </script>
+        </head>
+    <body>
+        <h1> 로그인 </h1>
+        <form id = "login" method = "POST" action = "/login">
+            <input type = "email" name = "email" placeholder="Your Email" />
+            <input type = "password" name = "password" placeholder="Password" />
+            <button type = "submit"> 로그인 </button>
+        </form>
+        <h1> 회원가입 </h1>
+        <button type="button" onclick="location.href='/register'">회원가입</button>
+    </body>
+</html>

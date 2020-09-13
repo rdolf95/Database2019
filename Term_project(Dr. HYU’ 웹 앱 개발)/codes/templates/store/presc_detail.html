@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Hospital - Record_Prescription
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+<h1> 처방전 </h1>
+</br>
+<div id = "prescription">
+
+    <h4>환자정보</h4>
+    <table border="2">
+        <thead>
+            <tr>
+                <td> 환자이름 </td>
+                <td> 환자 전화번호</td>
+            </tr>
+        </thead>
+        <tbody>
+            <td> {{ prescription["p_name"] }} </td>
+            <td> {{ prescription["p_phone"] }} </td>
+        </tbody>
+    </table>
+
+    <h4> 처방 의료기관명 : {{ prescription["h_name"] }} </h4>
+    <table border="2"> 
+        <thead>
+            <p>처방 년 월 일</p>
+            <th> 년 </th><th> 월 </th><th> 일 </th><th> 시 </th><th> 분 </th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ prescription["presc_date"].year }} 년</td>
+                <td>{{ prescription["presc_date"].month }} 월</td>
+                <td>{{ prescription["presc_date"].day }} 일</td>
+                <td>{{ prescription["presc_time"].hour }} 시</td>
+                <td>{{ prescription["presc_time"].minute }} 분</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4> 조제기관명 : {{ prescription["s_name"] }} </h4>
+    <table border="2"> 
+        <thead>
+            <p>조제 년 월 일</p>
+            <th> 년 </th><th> 월 </th><th> 일 </th><th> 시 </th><th> 분 </th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ prescription["presc_date"].year }} 년</td>
+                <td>{{ prescription["presc_date"].month }} 월</td>
+                <td>{{ prescription["presc_date"].day }} 일</td>
+                <td>{{ prescription["presc_time"].hour }} 시</td>
+                <td>{{ prescription["presc_time"].minute }} 분</td>
+            </tr>
+        </tbody>
+    </table>
+    <table id = "medicine" border = '2'>
+        <thead >
+            <tr>
+                <td style="width:200px;"> 처방 의약품의 명칭</td> 
+                <td style='width:100px;'> 1회 투약량</td> 
+                <td style='width:100px;'> 1일 투여횟수</td> 
+                <td style='width:100px;'> 총 투약일수</td>
+            </tr>
+        </thead>
+        <tbody id = "medicine_tbd"></tbody>
+        <p>약품 정보</p>
+        {% for medicine in medicines %}
+            <tr>
+                <td> {{ medicine['name'] }}</td>
+                <td> {{ medicine['amount'] }}</td>
+                <td> {{ medicine['day'] }}</td>
+                <td> {{ medicine['total'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>기타사항</h4>
+    <input type="text" readonly="readonly" 
+           style="border: 2px solid; background-color: #e2e2e2;" value={{ prescription['etc']}} />
+</div>
+</br>
+<div>
+    <button onclick = "location.href = '/store'" style="height: 50px; width: 150px; font-size:1.5em;"> 홈으로 </button> 
+</div>
+
+
+
+</body>

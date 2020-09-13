@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Hospital - Home
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="/static/hospital/hospital.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div style="float: right;"> 
+            <button onclick="location.href='/logout'" 
+                    style="height:30px; width:70px; float: left;"> 로그아웃 </button>
+            <button onclick="location.href='/change_profil'" 
+                    style="height:30px; width:70px; float: left;"> 프로필 수정 </button>
+    </div>
+    <div>
+        You are managing {{  hospital['name'] }} </br>
+        의사수: {{ hospital['dnum'] }}  위도: {{  hospital['lat'] }}  경도: {{  hospital['lng'] }}</br>
+        주소: {{  hospital['addr'] }} </br>
+        현재 사용자와의 거리: {{distance}}m</br>
+    </div>
+    </br>
+    <details>
+        <summary>진료과목 (펼치기/접기):</summary>
+        <p>
+            {% for subject in subjects %}
+                {{ subject['subject'] }},
+            {% endfor %}
+        </p>
+        <form id = "add_subject" method = "POST" action = "/hospital/add_subject">
+            <p> 추가 </p>
+            <input type="text" name="subject" placeholder="진료과목 이름" />
+            <button type="submit">추가하기</button>
+        </form>
+        <form id = "delete_subject" method = "POST" action = "/hospital/delete_subject">
+            <p> 제거 </p>
+            <input type="text" name="subject" placeholder="진료과목 이름" />
+            <button type="submit">제거하기</button>
+        </form>
+    </details>
+    </br>
+    <h4> 진료시간: </h4>
+    <table id = "work_hour">
+        <thead>
+            <tr>
+                <th> <th> 월요일 </th> <th> 화요일 </th> <th> 수요일 </th> <th> 목요일 </th>
+                <th> 금요일 </th> <th> 토요일 </th> <th> 일요일 </th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr>
+                <td> 시작시간 </td>
+                {% for startTime in startTimes %}
+                    <td>{{ startTime }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td> 종료시간 </td>
+                {% for endTime in endTimes %}
+                    <td>{{ endTime }} </td>
+                {% endfor %}
+            </tr>
+            <button id = 'modify' onclick='tableCreate()'style="height:20px; width:70px; font-size:0.8em">
+                    수정하기
+            </button>
+        </tbody>
+    </table>
+    <div id = 'modify_time'></div>
+    </br> </br>
+    <button onclick="location.href='/hospital/appointment'" style="height:80px; width:200px; font-size:2.0em; float: left;"> 예약자 확인</button>
+    <button onclick="location.href='/hospital/prescribe'" style="height:80px; width:200px; font-size:2.0em; float: left;"> 처방 하기 </button>
+    <button onclick="location.href='/hospital/record'" style="height:80px; width:200px; font-size:2.0em; float: left;"> 환자 기록 확인</button>
+</body>

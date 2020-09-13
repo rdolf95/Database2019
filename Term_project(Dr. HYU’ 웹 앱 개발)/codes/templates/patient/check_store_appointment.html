@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+    <title>Patient - 예약 상황 확인</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="/static/patient/check_appointment.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(() =>{
+            var appointments = JSON.parse('{{appointments | tojson}}');
+            var tBodyHtml = ''
+            for (var row of appointments){
+                tBodyHtml +=  `<tr>
+                    <td>${row['s_name']}</td>
+                    <td>${row['p_name']}</td>
+                    <td>${row['h_name']}</td>
+                    <td>${row['presc_date']}</td>
+                    <td>${row['presc_time']}</td>
+                    <td>${row['presc_done'] == 0 ? '확인중' 
+                        : row['presc_done'] == 1 ? '처방 가능'
+                        : row['presc_done'] == 2 ? '처방 불가(상점에 문의해주세요.)'
+                        : row['presc_done'] == 3 ? '처방 완료'
+                        : '확인중' }
+                    </td>
+                    <td>
+                        <form type = 'submit' method = 'POST' action = '/patient/cancle_store_appointment'>
+                            <input type = 'hidden' name = 'prid', value = ${row['prid']} />
+                            <input type = 'hidden' name = 'state', value = ${row['presc_done']} />
+                            <button type='submit'>제거하기</button>
+                        </form>
+                    </td>
+                </tr>
+                `
+            }
+            $("table#appointments_table tbody").html(tBodyHtml)
+        })
+    </script>
+</head>
+<body>
+    <h1>예약상황 확인</h1>
+    <table id = "appointments_table" border="2">
+        <thead>
+            <tr>
+                <th>상점 이름</th>
+                <th>환자 이름</th>
+                <th>병원 이름</th>
+                <th>처방 일</th>
+                <th>처방 시간</th>
+                <th>예약 상황</th>
+                <th>예약 취소</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button onclick="location.href='/patient'" style="height:60px; width:150px; font-size:1.5em"> 홈으로</button>
+</body>
+</html>

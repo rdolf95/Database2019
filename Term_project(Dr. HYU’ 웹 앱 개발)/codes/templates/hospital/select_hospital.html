@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            병원 선택
+        </title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+        </script>
+        <script>
+        $(document).ready(() =>{
+            $("#select").submit((e) => {
+                e.preventDefault()
+                var select = document.getElementById("select")
+                var uid = document.createElement("input")
+                uid.type = "hidden"
+                uid.name = "uid"
+                uid.value = "{{uid}}"
+
+                select.appendChild(uid)
+                select.submit()
+            })
+         })
+        </script>
+    </head>
+
+    <body>
+        <div>
+            관리할 병원을 선택 해야 합니다.
+        </div>
+        <form id = "select" method = "POST" action = "/hospital/select_hospital">
+            선택 할 병원 이름을 입력하세요.
+            <input type = "text" name = "name" placeholder="병원 이름" />
+            <input type = "text" name = "lat" placeholder="위도" />
+            <input type = "text" name = "lng" placeholder="경도" />
+            <button type = "submit"> 선택 </button>
+        </form>
+    </body>
+</html>
